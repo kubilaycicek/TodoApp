@@ -14,6 +14,7 @@ import java.util.List;
 @Table(name = "USERS")
 public class User extends BaseEntity {
 
+
     @Column(name = "name")
     private String name;
 

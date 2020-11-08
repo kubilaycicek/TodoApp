@@ -5,7 +5,6 @@ import com.kubilaycicek.todo.constants.StringConstants;
 import com.kubilaycicek.todo.dto.UserDto;
 import com.kubilaycicek.todo.enums.OperationStatus;
 import com.kubilaycicek.todo.filter.JwtTokenUtil;
-import com.kubilaycicek.todo.model.User;
 import com.kubilaycicek.todo.request.LoginRequest;
 import com.kubilaycicek.todo.request.RegisterRequest;
 import com.kubilaycicek.todo.response.account.LoginResponse;

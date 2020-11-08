@@ -1,6 +1,5 @@
 package com.kubilaycicek.todo.configuration;
 
-import com.kubilaycicek.todo.constants.MappingConstants;
 import com.kubilaycicek.todo.filter.JwtAuthenticationEntryPoint;
 import com.kubilaycicek.todo.filter.JwtAuthenticationFilter;
 import com.kubilaycicek.todo.service.UserDetailsServiceImpl;

@@ -6,6 +6,7 @@ import com.kubilaycicek.todo.mapper.UserMapper;
 import com.kubilaycicek.todo.model.User;
 import com.kubilaycicek.todo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,14 +18,17 @@ public class UserServiceImpl implements UserService {
 
     public final UserRepository userRepository;
     public final UserMapper userMapper;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public UserDto addUser(UserDto userDto) {
+        userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         return !findByUsernameOrEmail(userDto.getUsername(), userDto.getEmail()) ? userMapper.toUserDto(userRepository.save(userMapper.toUser(userDto))) : null;
     }
 
     @Override
     public UserDto updateUser(UserDto userDto) {
+        userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         return !findByUsernameOrEmail(userDto.getUsername(), userDto.getEmail()) ? userMapper.toUserDto(userRepository.save(userMapper.toUser(userDto))) : null;
     }
 
