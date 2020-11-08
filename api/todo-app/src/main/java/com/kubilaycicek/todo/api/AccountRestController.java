@@ -1,10 +1,15 @@
 package com.kubilaycicek.todo.api;
 
 import com.kubilaycicek.todo.constants.MappingConstants;
+import com.kubilaycicek.todo.constants.StringConstants;
 import com.kubilaycicek.todo.dto.UserDto;
+import com.kubilaycicek.todo.enums.OperationStatus;
 import com.kubilaycicek.todo.filter.JwtTokenUtil;
+import com.kubilaycicek.todo.model.User;
 import com.kubilaycicek.todo.request.LoginRequest;
+import com.kubilaycicek.todo.request.RegisterRequest;
 import com.kubilaycicek.todo.response.account.LoginResponse;
+import com.kubilaycicek.todo.response.account.RegisterResponse;
 import com.kubilaycicek.todo.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,6 +17,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -32,5 +38,15 @@ public class AccountRestController {
 
         return new LoginResponse(token, loginUserDto);
 
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "register", method = RequestMethod.POST)
+    public RegisterResponse register(@RequestBody RegisterRequest req) {
+        UserDto userDto = Optional.ofNullable(userService.addUser(req.getUserDto())).orElse(null);
+        if (userDto != null)
+            return new RegisterResponse(StringConstants.SUCCESS_FULL_MESSAGE, OperationStatus.SUCCESS.getValue());
+        else
+            return new RegisterResponse(StringConstants.UN_SUCCESS_MESSAGE, OperationStatus.UN_SUCCESS.getValue());
     }
 }
