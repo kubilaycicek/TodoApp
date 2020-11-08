@@ -1,5 +1,6 @@
 package com.kubilaycicek.todo.configuration;
 
+import com.kubilaycicek.todo.constants.MappingConstants;
 import com.kubilaycicek.todo.filter.JwtAuthenticationEntryPoint;
 import com.kubilaycicek.todo.filter.JwtAuthenticationFilter;
 import com.kubilaycicek.todo.service.UserDetailsServiceImpl;
@@ -41,8 +42,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().
                 authorizeRequests()
-                .antMatchers("/api/account/register", "/api/account").permitAll()
-                .antMatchers("/api/account/login", "/api/account").permitAll()
+                .antMatchers("/todo-app/v1/account/login","/todo-app/v1/account").permitAll()
+                .antMatchers("/todo-app/v1/account/register","/todo-app/v1/account").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()

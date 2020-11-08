@@ -29,7 +29,7 @@ public class AccountRestController {
     private final UserServiceImpl userService;
 
     @CrossOrigin
-    @RequestMapping(value = "login", method = RequestMethod.POST)
+    @RequestMapping(value = MappingConstants.ACCOUNT_LOGIN_REST_URL, method = RequestMethod.POST)
     public LoginResponse login(@RequestBody LoginRequest req) throws AuthenticationException {
 
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(req.getUsername(), req.getPassword()));
@@ -37,16 +37,16 @@ public class AccountRestController {
         final String token = jwtTokenUtil.generateToken(req.getUsername());
 
         return new LoginResponse(token, loginUserDto);
-
     }
 
     @CrossOrigin
-    @RequestMapping(value = "register", method = RequestMethod.POST)
+    @RequestMapping(value = MappingConstants.ACCOUNT_REGISTER_REST_URL, method = RequestMethod.POST)
     public RegisterResponse register(@RequestBody RegisterRequest req) {
         UserDto userDto = Optional.ofNullable(userService.addUser(req.getUserDto())).orElse(null);
-        if (userDto != null)
+        if (userDto != null) {
             return new RegisterResponse(StringConstants.SUCCESS_FULL_MESSAGE, OperationStatus.SUCCESS.getValue());
-        else
+        } else {
             return new RegisterResponse(StringConstants.UN_SUCCESS_MESSAGE, OperationStatus.UN_SUCCESS.getValue());
+        }
     }
 }

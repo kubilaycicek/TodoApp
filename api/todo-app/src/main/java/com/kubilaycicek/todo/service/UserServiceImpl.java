@@ -20,12 +20,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto addUser(UserDto userDto) {
-        return findByUsernameOrEmail(userDto.getUsername(), userDto.getEmail()) ? userMapper.toUserDto(userRepository.save(userMapper.toUser(userDto))) : null;
+        return !findByUsernameOrEmail(userDto.getUsername(), userDto.getEmail()) ? userMapper.toUserDto(userRepository.save(userMapper.toUser(userDto))) : null;
     }
 
     @Override
     public UserDto updateUser(UserDto userDto) {
-        return findByUsernameOrEmail(userDto.getUsername(), userDto.getEmail()) ? userMapper.toUserDto(userRepository.save(userMapper.toUser(userDto))) : null;
+        return !findByUsernameOrEmail(userDto.getUsername(), userDto.getEmail()) ? userMapper.toUserDto(userRepository.save(userMapper.toUser(userDto))) : null;
     }
 
     @Override
