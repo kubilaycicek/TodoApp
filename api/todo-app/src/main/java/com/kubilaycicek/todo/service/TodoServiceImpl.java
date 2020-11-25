@@ -35,6 +35,8 @@ public class TodoServiceImpl implements TodoService {
         Todo todoDb = todoRepository.findById(todoDto.getId()).orElseThrow(() -> new TodoNotFoundException("Todo" + todoDto.getId() + "does not exist !"));
         todoDb.setTitle(todoDto.getTitle());
         todoDb.setStatus(todoDto.getStatus());
+        todoDb.setUser(userRepository.findById(todoDto.getUserDto().getId())
+                .orElseThrow(() -> new UserNotFoundException("Todo" + todoDto.getId() + "does not exist !")));
 
         return todoMapper.toTodoDto(todoRepository.save(todoDb));
     }
