@@ -8,6 +8,8 @@ import com.kubilaycicek.todo.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @CrossOrigin
 @RestController
 @RequestMapping(MappingConstants.TODO_REST_URL)
@@ -16,12 +18,12 @@ public class TodoRestController {
     private final TodoService todoService;
 
     @PostMapping("/")
-    public TodoResponse addTodo(@RequestBody TodoRequest req) {
+    public TodoResponse addTodo(@RequestBody @Valid TodoRequest req) {
         return new TodoResponse(todoService.addTodo(req.getTodoDto()));
     }
 
     @PutMapping("/")
-    public TodoResponse updateTodo(@RequestBody TodoRequest req) {
+    public TodoResponse updateTodo(@RequestBody @Valid TodoRequest req) {
         return new TodoResponse(todoService.updateTodo(req.getTodoDto()));
     }
 
@@ -31,12 +33,12 @@ public class TodoRestController {
     }
 
     @GetMapping("/todo/{id}")
-    public TodoResponse getTodo(@PathVariable(name = "id", required = true) long id) {
+    public TodoResponse getTodo(@PathVariable(name = "id") long id) {
         return new TodoResponse(todoService.getById(id));
     }
 
     @DeleteMapping("/delete/{id}")
-    public void removeById(@PathVariable(name = "id", required = true) long id) {
+    public void removeById(@PathVariable(name = "id") long id) {
         todoService.removeById(id);
     }
 }

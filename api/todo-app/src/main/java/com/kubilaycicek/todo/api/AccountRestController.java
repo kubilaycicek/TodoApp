@@ -16,11 +16,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
+import javax.validation.Valid;
 import java.util.Optional;
 
-@RequiredArgsConstructor
+
 @RestController
 @RequestMapping(MappingConstants.ACCOUNT_REST_URL)
+@RequiredArgsConstructor
 public class AccountRestController {
 
     private final AuthenticationManager authenticationManager;
@@ -29,7 +31,7 @@ public class AccountRestController {
 
     @CrossOrigin
     @RequestMapping(value = MappingConstants.ACCOUNT_LOGIN_REST_URL, method = RequestMethod.POST)
-    public LoginResponse login(@RequestBody LoginRequest req) throws AuthenticationException {
+    public LoginResponse login(@RequestBody @Valid LoginRequest req) throws AuthenticationException {
 
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(req.getUsername(), req.getPassword()));
         final UserDto loginUserDto = userService.findByUserName(req.getUsername());

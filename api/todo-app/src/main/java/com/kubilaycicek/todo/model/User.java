@@ -5,6 +5,7 @@ import com.kubilaycicek.todo.enums.Role;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,15 +16,19 @@ import java.util.List;
 public class User extends BaseEntity {
 
 
+    @NotBlank(message = "Name is mandatory")
     @Column(name = "name")
     private String name;
 
+    @NotBlank(message = "Username is mandatory")
     @Column(name = "username")
     private String username;
 
+    @NotBlank(message = "Email is mandatory")
     @Column(name = "email")
     private String email;
 
+    @NotBlank(message = "Password is mandatory")
     @Column(name = "password")
     private String password;
 

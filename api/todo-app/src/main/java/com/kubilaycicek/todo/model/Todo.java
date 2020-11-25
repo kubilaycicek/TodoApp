@@ -4,11 +4,13 @@ import com.kubilaycicek.todo.enums.Status;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @Entity
 @Table(name = "TODOS")
 public class Todo extends BaseEntity {
+    @NotBlank(message = "Title is mandatory")
     @Column(name = "title")
     private String title;
 

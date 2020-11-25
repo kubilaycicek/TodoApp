@@ -8,6 +8,8 @@ import com.kubilaycicek.todo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @CrossOrigin
 @RestController
 @RequestMapping(MappingConstants.USER_REST_URL)
@@ -17,12 +19,12 @@ public class UserRestController {
     private final UserService userService;
 
     @PostMapping("/")
-    public UserResponse addUser(@RequestBody UserRequest req) {
+    public UserResponse addUser(@RequestBody @Valid UserRequest req) {
         return new UserResponse(userService.addUser(req.getUserDto()));
     }
 
     @PutMapping("/")
-    public UserResponse updateUser(@RequestBody UserRequest req) {
+    public UserResponse updateUser(@RequestBody @Valid UserRequest req) {
         return new UserResponse(userService.updateUser(req.getUserDto()));
     }
 
