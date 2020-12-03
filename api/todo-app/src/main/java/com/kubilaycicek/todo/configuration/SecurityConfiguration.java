@@ -41,8 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().
                 authorizeRequests()
-                .antMatchers("/todo-app/v1/account/login","/todo-app/v1/account").permitAll()
-                .antMatchers("/todo-app/v1/account/register","/todo-app/v1/account").permitAll()
+                .antMatchers("/todo-app/v1/account/login","/todo-app/v1/account/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
@@ -54,7 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     @Bean
-    public JwtAuthenticationFilter authenticationTokenFilterBean() throws Exception {
+    public JwtAuthenticationFilter authenticationTokenFilterBean(){
         return new JwtAuthenticationFilter();
     }
 

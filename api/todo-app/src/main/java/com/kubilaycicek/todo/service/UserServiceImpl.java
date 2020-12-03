@@ -3,7 +3,6 @@ package com.kubilaycicek.todo.service;
 import com.kubilaycicek.todo.dto.UserDto;
 import com.kubilaycicek.todo.exception.UserNotFoundException;
 import com.kubilaycicek.todo.mapper.UserMapper;
-import com.kubilaycicek.todo.model.User;
 import com.kubilaycicek.todo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

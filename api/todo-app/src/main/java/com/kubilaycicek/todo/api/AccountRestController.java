@@ -1,5 +1,6 @@
 package com.kubilaycicek.todo.api;
 
+import com.kubilaycicek.todo.components.Authentication;
 import com.kubilaycicek.todo.constants.MappingConstants;
 import com.kubilaycicek.todo.constants.StringConstants;
 import com.kubilaycicek.todo.dto.UserDto;
@@ -11,6 +12,7 @@ import com.kubilaycicek.todo.response.account.LoginResponse;
 import com.kubilaycicek.todo.response.account.RegisterResponse;
 import com.kubilaycicek.todo.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +31,10 @@ public class AccountRestController {
     private final JwtTokenUtil jwtTokenUtil;
     private final UserServiceImpl userService;
 
+
+    @Autowired
+    Authentication authentication;
+
     @CrossOrigin
     @RequestMapping(value = MappingConstants.ACCOUNT_LOGIN_REST_URL, method = RequestMethod.POST)
     public LoginResponse login(@RequestBody @Valid LoginRequest req) throws AuthenticationException {
@@ -36,6 +42,10 @@ public class AccountRestController {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(req.getUsername(), req.getPassword()));
         final UserDto loginUserDto = userService.findByUserName(req.getUsername());
         final String token = jwtTokenUtil.generateToken(req.getUsername());
+        System.out.println("--------------");
+        System.out.println(authentication.getUsername());
+
+
 
         return new LoginResponse(token, loginUserDto);
     }
@@ -45,6 +55,8 @@ public class AccountRestController {
     public RegisterResponse register(@RequestBody RegisterRequest req) {
         UserDto userDto = Optional.ofNullable(userService.addUser(req.getUserDto())).orElse(null);
         if (userDto != null) {
+            System.out.println("--------------");
+            System.out.println(authentication.getUsername());
             return new RegisterResponse(StringConstants.SUCCESS_FULL_MESSAGE, OperationStatus.SUCCESS.getValue());
         } else {
             return new RegisterResponse(StringConstants.UN_SUCCESS_MESSAGE, OperationStatus.UN_SUCCESS.getValue());
