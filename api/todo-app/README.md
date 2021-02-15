@@ -1,2 +1,2 @@
-# Todo Fullstack Application
+# Todo Application
 .....
