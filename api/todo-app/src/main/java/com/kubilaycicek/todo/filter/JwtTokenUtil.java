@@ -16,7 +16,7 @@ public class JwtTokenUtil {
 
     // 1Gün
     public static final long ACCESS_TOKEN_VALIDITY_SECONDS = 24 * 60 * 60 * 1000;
-    public static final String SIGNING_KEY = "foodstuff";
+    public static final String SIGNING_KEY = "todoApps";
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
